@@ -6,7 +6,7 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
 {
 
     private int size; //текущее количество элементов в множестве
-    private static final int INITIAL_CAPACITY = 16; //количестао мест в массиве всего
+    private static final int INITIAL_CAPACITY = 16; //количество мест в множестве всего
     private static final float LOAD_FACTOR = 0.75f; //когда массив будет заполнен на 75%, произойдет увеличение емкости (resize)
     private Object[] table;
 
@@ -15,11 +15,11 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
         size = 0;
     }
 
-    private int hash(Object key) { //OK
+    private int hash(Object key) {
         return (key == null) ? 0 : Math.abs(key.hashCode()) % table.length;
     }
 
-    private int find(Object key) { //OK
+    private int find(Object key) {
         int index = hash(key);
         Object[] sameHash = (Object[]) table[index]; //элементы с одинаковым хеш-кодом
         if (sameHash != null) {
@@ -32,7 +32,7 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
         return -1;
     }
 
-    private void resize() { //OK
+    private void resize() {
         Object[] oldTable = table;
         table = new Object[table.length * 2];
         size = 0;
@@ -46,26 +46,26 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
     }
 
     @Override
-    public int size() { //OK
+    public int size() {
         return size;
     }
 
     @Override
-    public boolean isEmpty() { //OK
+    public boolean isEmpty() {
         return size == 0;
     }
 
     @Override
-    public boolean contains(Object key) {//OK
+    public boolean contains(Object key) {
         return find(key) != -1;
     }
 
     @Override
-    public Iterator<T> iterator() {//OK
+    public Iterator<T> iterator() {
         return new MyHashSetIterator();
     }
 
-    private class MyHashSetIterator implements Iterator<T>{//OK
+    private class MyHashSetIterator implements Iterator<T>{
 
         private int currentSameHashIndex = 0;
         private int currentElementIndex = -1;
@@ -121,7 +121,7 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
     }
 
     @Override
-    public Object[] toArray() { //OK
+    public Object[] toArray() {
         Object[] result = new Object[size];
         int i = 0;
         Iterator<T> it = iterator();
@@ -146,7 +146,7 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
     }
 
     @Override
-    public boolean add(T key) { //OK
+    public boolean add(T key) {
         if (contains(key)){
             return false;
         }
@@ -170,7 +170,7 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
     }
 
     @Override
-    public boolean remove(Object key) {//OK
+    public boolean remove(Object key) {
         int index = find(key);
         if(index == -1){
             return false;
