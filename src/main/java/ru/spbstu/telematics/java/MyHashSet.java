@@ -10,7 +10,7 @@ public class MyHashSet<T> implements Set<T>, Iterable<T>
     private static final float LOAD_FACTOR = 0.75f; //когда массив будет заполнен на 75%, произойдет увеличение емкости (resize)
     private Object[] table;
 
-    public MyHashSet(){ //OK
+    public MyHashSet(){
         table = new Object[INITIAL_CAPACITY];
         size = 0;
     }

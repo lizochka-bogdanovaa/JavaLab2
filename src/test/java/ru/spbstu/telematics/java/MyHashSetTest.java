@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class MyHashSetTest{
     private MyHashSet<Integer> myHashSet;
@@ -46,7 +47,38 @@ public class MyHashSetTest{
         assertEquals(myHashSet.contains(3),regHashSet.contains(3)); //такого объекта нет
     }
 
-    //ITERATOR CHECK
+    @Test
+    public void testIterator() {
+        myHashSet.add(1);
+        myHashSet.add(2);
+        regHashSet.add(1);
+        regHashSet.add(2);
+        Iterator<Integer> my_iter = myHashSet.iterator();
+        Iterator<Integer> reg_iter = regHashSet.iterator();
+        //Проверяем наличия следующего элемента и сравниваем элементы
+        while (my_iter.hasNext() && reg_iter.hasNext()) {
+            assertEquals(reg_iter.next(), my_iter.next());
+        }
+        assertEquals(my_iter.hasNext(), reg_iter.hasNext());
+        //Удаляем первый элемент
+        if (my_iter.hasNext()) {
+            my_iter.remove();
+            reg_iter.remove();
+        }
+        //Проверяем, что размеры контейнеров обновились
+        assertEquals(regHashSet.size(), myHashSet.size());
+        assertEquals(myHashSet.contains(1), regHashSet.contains(1));
+        //Повторяем обход для оставшихся элементов
+        while (my_iter.hasNext() && reg_iter.hasNext()) {
+            assertEquals(reg_iter.next(), my_iter.next());
+        }
+        //Удаляем второй элемент
+        if (my_iter.hasNext()) {
+            my_iter.remove();
+            reg_iter.remove();
+        }
+        assertEquals(regHashSet.isEmpty(), myHashSet.isEmpty());
+    }
 
     @Test
     public void testToArray() {
